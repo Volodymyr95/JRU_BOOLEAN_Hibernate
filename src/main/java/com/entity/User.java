@@ -18,24 +18,7 @@ public class User {
     @Column(length = 100)
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REMOVE}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "address_id")
-    private Address address;
-    @ElementCollection
-    @CollectionTable(name = "user_visited_countries_list", joinColumns = @JoinColumn(name = "user_id"))
-    private List<String> visitedCountries;
-
-    @ManyToMany
-    @JoinTable(name = "users_roles", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
-
-    @OneToOne(orphanRemoval = true)
-    @JoinColumn(name = "passport_id")
-    private Passport passport;
-
-
     private int age;
-
 
     public User() {
     }
@@ -78,44 +61,11 @@ public class User {
         this.age = age;
     }
 
-    public List<String> getVisitedCountries() {
-        return visitedCountries;
-    }
-
-    public void setVisitedCountries(List<String> visitedCountries) {
-        this.visitedCountries = visitedCountries;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
-    public Passport getPassport() {
-        return passport;
-    }
-
-    public void setPassport(Passport passport) {
-        this.passport = passport;
-    }
-
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", visitedCountries=" + visitedCountries +
                 ", age=" + age +
                 '}';
     }
